@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { quiz } from '../quizQuestions'
+import Timer from './Timer'
 
 function Quiz() {
   const [marks, setMarks] = useState(0)
@@ -7,7 +8,7 @@ function Quiz() {
 
   const addMarks = (q) => {
     if (answer == q.correct_answer) {
-      setMarks(prev => prev + 1)
+      setMarks(prev => prev + q.marks)
     }
     setAnswer('')
   }
@@ -17,22 +18,24 @@ function Quiz() {
   }, [answer])
 
   return (
+    <>
     <div className='flex flex-col items-center justify-center'>
-      <div className='flex justify-between items-center gap-20 p-10'>
+      <div className='flex flex-col justify-between items-center gap-x-20 gap-y-4 p-10 lg:flex-row'>
         <h1 className='text-2xl text-blue-600 text-center font-extrabold'>Logical Thinking and Programming Quiz</h1>
         <h2 className='bg-green-600 p-4 text-white text-xl font-bold rounded-full'>Total Marks :- {marks}</h2>
+        <Timer/>
+      </div>
+      <div className='flex flex-col gap-4 p-4'>
+        <div className='flex justify-between gap-x-2'>
+          <label htmlFor="S_name">Name:- </label>
+          <input type="text" name="S_name" id="S_name" className='border border-black'/>
+        </div>
+        <div className='flex justify-between gap-x-2'>
+          <label htmlFor="S_roll">Roll Number:- </label>
+          <input type="text" name="S_roll" id="S_roll" className='border border-black'/>
+        </div>
       </div>
       <div className='bg-gray-100 rounded w-1/2 p-8'>
-        <div>
-          <div>
-            <label htmlFor="S_name">Name</label>
-            <input type="text" name="S_name" id="S_name" />
-          </div>
-          <div>
-            <label htmlFor="S_roll">Roll Number</label>
-            <input type="text" name="S_roll" id="S_roll" />
-          </div>
-        </div>
         {quiz.map((q, idx) => (
           <div key={idx} className='flex flex-col justify-center '>
             <div className='flex justify-between'>
@@ -53,6 +56,7 @@ function Quiz() {
         ))}
       </div>
     </div>
+    </>
   )
 }
 
